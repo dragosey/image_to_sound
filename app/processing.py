@@ -55,10 +55,6 @@ class Processing:
                     self.greenPixel.clear()
                     self.bluePixel.clear()
 
-                    # print("AVG_red:" + str(avg_red))
-                    # print("AVG_green:" + str(avg_green))
-                    # print("AVG_blue:" + str(avg_blue))
-
                     sound_value = (avg_red + avg_green + avg_blue) / 3
                     self.soundValue.append(sound_value)
 
@@ -70,21 +66,12 @@ class Processing:
 
         # volume = 0.8  # range [0.0, 1.0]
         fs = 44100  # sampling rate, Hz, must be integer
-        duration = 0.5  # in seconds, may be float
-        f = (sound_value*10000)/255  # sine frequency, Hz, may be float
+        duration = 0.2  # in seconds, may be float
+        f = (sound_value*440)/255  # sine frequency, Hz, may be float
 
         # generate samples, note conversion to float32 array
         samples = (np.sin(2 * np.pi * np.arange(fs * duration) * f / fs)).astype(np.float32)
 
-        #TODO tweak duration of the sound and bind them nicely
-        # self.audioSegment[self.i] = AudioSegment(
-        #         #     samples.tobytes(),
-        #         #     frame_rate=44100,
-        #         #     sample_width=samples.dtype.itemsize,
-        #         #     channels=1
-        #         # )
-        #         # self.i = self.i + 1
-        #         # print(self.i)
         audiosegment = AudioSegment(
                 samples.tobytes(),
                 frame_rate=44100,

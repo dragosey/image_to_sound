@@ -39,12 +39,6 @@
             return false;
         });
      });
-//     $(function(){
-//        $("#play").click(function(){
-//              //$("#line").show().animate({left: width}, width*0.5);
-//            return false;
-//       });
-//     });
     </script>
 
 </head>
@@ -75,7 +69,7 @@
 <script>
 let img = document.getElementById("uploadedimg");
 
-let width = img.clientWidth;
+let width = img.naturalWidth;
 let height = img.clientHeight;
 console.log(width);
 console.log(height);
@@ -83,11 +77,13 @@ console.log(height);
 let player = document.getElementById("player");
 let stare = 0;
 
+let image_width = document.getElementById("uploadedimg").offsetWidth;
+
 function playAudio() {
     if (stare === 0) {
         player.play();
         stare = 1;
-        $("#line").width(1).height(height).animate({left: width}, width*500);
+        $("#line").width(1).height(height).animate({left: image_width }, width*200);
     }
     else {
         player.pause();

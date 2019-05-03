@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 * { margin: 0; padding: 0; }
 
-body { font-family: 'Varela Round', sans-serif }
+body { font-family: 'Varela Round', sans-serif; overflow-y: hidden }
 
 /*image.html related CSS*/
 
@@ -107,7 +107,7 @@ body { font-family: 'Varela Round', sans-serif }
 .content {
     text-align: center;
     color: white;
-    padding: 4rem 4rem;
+    padding: 1.5rem 4rem;
     margin: 0 auto;
 }
 

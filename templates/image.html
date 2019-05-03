@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script type="text/javascript">
+      $(function(){
+        $("#analyze").click(function(){
+            $.ajax(
+                {
+                    url: '/processing',
+                    complete: function () {
+                        $("#header-makefile").show();
+                        $("#makefile").show();
+                        
+                        $("#header-analyze").hide();
+                        $("#analyze").hide();
+                    }
+                });
+            return false;
+        });
+     });
+      $(function(){
+        $("#makefile").click(function(){
+            $.ajax(
+                {
+                    url: '/makefile',
+                    complete: function () {
+                        $("#header-play").show();
+                        $("#play").show();
+                        
+                        $("#header-makefile").hide();
+                        $("#makefile").hide();
+                    }
+                });
+            return false;
+        });
+     });
+//     $(function(){
+//        $("#play").click(function(){
+//              //$("#line").show().animate({left: width}, width*0.5);
+//            return false;
+//       });
+//     });
+    </script>
+
+</head>
+<body>
+    <div class="background-image"></div>
+
+    <div class="image-frame">
+        <div id="line"></div>
+        {% if image_uploaded %}
+            <img id="uploadedimg" src="{{ image_uploaded.image.url }}">
+        {% endif %}
+    </div>
+    <div class="content">
+        <h1 id="header-analyze">Step one: Get pixels values from the image</h1>
+        <button class="button-results" id="analyze" name="analyze" type="button">Start pixel analysis! <i class="fa fa-chart-bar"></i></button>
+
+        <h1 id="header-makefile" style="display: none">Step two: Generate a sound for every column and bind them</h1>
+        <button class="button-results" id="makefile" name="makefile" type="button" style="display: none">Generate audio! <i class="fa fa-file-audio"></i></button>
+
+        <h1 id="header-play" style="display: none;">Step three: Play generated file</h1>
+        <button class="button-results" id="play" name="play" onclick="playAudio()" type="button" style="display: none">Play audio file! <i class="fa fa-play"></i></button>
+    </div>
+
+    <audio id="player">
+        <source src="http://127.0.0.1:8000/media/sound.wav" type="audio/wav">
+    </audio>
+</body>
+<script>
+let img = document.getElementById("uploadedimg");
+
+let width = img.clientWidth;
+let height = img.clientHeight;
+console.log(width);
+console.log(height);
+
+let player = document.getElementById("player");
+let stare = 0;
+
+function playAudio() {
+    if (stare === 0) {
+        player.play();
+        stare = 1;
+        $("#line").width(1).height(height).animate({left: width}, width*500);
+    }
+    else {
+        player.pause();
+        stare = 0;
+    }
+}
+</script>
+</html>
